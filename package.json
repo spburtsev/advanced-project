@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm --parallel --filter @advanced-project/web --filter @advanced-project/sync-service run dev",
-    "infra": "docker compose -f infra/compose.yaml up -d postgres keycloak seaweedfs"
+    "infra": "docker compose -f infra/compose.yaml up -d postgres keycloak seaweedfs",
+    "check": "tsc -p . && pnpm --filter @advanced-project/web check"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
   },
   "type": "module",
   "devDependencies": {
+    "@types/node": "^24.19.2",
     "eslint": "^10.13.0",
     "eslint-plugin-jsdoc": "^65.4.2",
     "typescript": "^6.0.3"
