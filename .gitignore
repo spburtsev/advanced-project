@@ -2,3 +2,6 @@
 !/docs/images/.gitkeep
 
 /node_modules
+
+.env.*
+!.env.example
