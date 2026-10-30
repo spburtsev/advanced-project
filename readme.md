@@ -4,7 +4,7 @@
 Design a real-time collaborative editor supporting multiple users editing simultaneously. Integrate features like chat, document history, and role-based permissions. Apply synchronization algorithms like OT or CRDTs to prevent conflicts and data loss.
 
 ### Proposed Technologies: 
-Go, WebSocket, Postgres, React.
+WebSocket, Postgres, SeaweedFS, SvelteKit, Node.js.
 
 ### Key Challenges: 
 Conflict-free real-time synchronization, managing concurrent edits, and ensuring data persistence across sessions.
