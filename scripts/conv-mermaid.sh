@@ -1,0 +1,1 @@
+npx -p @mermaid-js/mermaid-cli mmdc -i docs/$1.md -o docs/images/$1.md -e png -s 2 -b white

@@ -1,0 +1,64 @@
+@startuml components
+
+title Real-Time Collaborative Text Editor
+
+actor "Student" as user
+
+node "Browser" {
+  component "App UI" as ui
+  component "CRDT replica" as replica
+  component "Sync client" as syncclient
+}
+
+frame "Docker Compose" {
+  component "Caddy" as caddy
+
+  component "App server" as web
+  component "Sync service" as sync
+  component "Keycloak" as keycloak
+  component "SeaweedFS" as seaweed
+
+  node "PostgreSQL" as pg {
+    database "App DB" as appdb
+    database "Keycloak DB" as kcdb
+  }
+}
+
+package "shared packages" {
+  component "crdt" as pcrdt
+  component "protocol" as pproto
+  component "db" as pdb
+}
+
+'Browser
+user -right-> ui
+ui <--> replica
+replica <--> syncclient
+
+'Browser to server
+ui --> caddy : HTTPS
+syncclient --> caddy : websocket
+
+'Server routing
+caddy -down-> web : /, /api
+caddy -down-> sync : /sync
+caddy -down-> keycloak : /auth
+caddy -down-> seaweed : /s3
+
+'Service to service
+web --> keycloak
+web --> seaweed
+web -down-> appdb
+sync -down-> appdb 
+keycloak -down-> kcdb
+
+'Shared code
+replica ..> pcrdt
+sync ..> pcrdt
+web ..> pcrdt
+syncclient ..> pproto
+sync ..> pproto
+web ..> pdb
+sync ..> pdb
+
+@enduml
