@@ -1,0 +1,26 @@
+{
+  "name": "advanced-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @advanced-project/web --filter @advanced-project/sync-service run dev",
+    "infra": "docker compose -f infra/compose.yaml up -d postgres keycloak seaweedfs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.9.0",
+      "onFail": "download"
+    }
+  },
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^10.13.0",
+    "eslint-plugin-jsdoc": "^65.4.2",
+    "typescript": "^6.0.3"
+  }
+}

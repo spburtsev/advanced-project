@@ -1,2 +1,4 @@
 /docs/images
 !/docs/images/.gitkeep
+
+/node_modules
