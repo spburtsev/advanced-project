@@ -21,8 +21,8 @@ export function attachSync(server, { path, db, origin }) {
 			return null;
 		});
 		if (!userId) {
-            return reject(socket, 401);
-        }
+			return reject(socket, 401);
+		}
 
 		wss.handleUpgrade(req, socket, head, (ws) => wss.emit('connection', ws, req, userId));
 	});

@@ -31,8 +31,8 @@ export async function createRuntime({ localDev, databaseUrl, origin, dataDir, se
 		throw new Error(`LOCAL_DEV enables mock login; refusing to run with ORIGIN=${origin}`);
 	}
 	if (!localDev && !databaseUrl) {
-        throw new Error('DATABASE_URL is not set');
-    }
+		throw new Error('DATABASE_URL is not set');
+	}
 
 	// Vite restarts call this again with a new HTTP server; keep the db (PGlite locks its folder).
 	const prev = store[KEY];
@@ -45,8 +45,8 @@ export async function createRuntime({ localDev, databaseUrl, origin, dataDir, se
 		// ponytail: S3 storage lands with attachments; null until then.
 		storage = localDev ? createLocalStorage(join(dataDir, 'storage')) : null;
 		if (localDev) {
-            console.log('LOCAL_DEV: PGlite + local storage + mock login at /auth/dev-login');
-        }
+			console.log('LOCAL_DEV: PGlite + local storage + mock login at /auth/dev-login');
+		}
 	}
 	const sync = attachSync(server, { path: '/sync', db, origin });
 	return (store[KEY] = { db, sync, storage: storage ?? null, localDev });
@@ -56,7 +56,7 @@ export async function createRuntime({ localDev, databaseUrl, origin, dataDir, se
 export function getRuntime() {
 	const runtime = store[KEY];
 	if (!runtime) {
-        throw new Error('runtime not created: start via server.js or vite dev');
-    }
+		throw new Error('runtime not created: start via server.js or vite dev');
+	}
 	return runtime;
 }

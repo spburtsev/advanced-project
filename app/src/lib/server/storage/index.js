@@ -20,8 +20,8 @@ export function createLocalStorage(dir) {
 	const pathOf = (key) => {
 		const path = resolve(root, key);
 		if (!path.startsWith(root + sep)) {
-            throw new Error(`storage key escapes root: ${key}`);
-        }
+			throw new Error(`storage key escapes root: ${key}`);
+		}
 		return path;
 	};
 
@@ -36,8 +36,8 @@ export function createLocalStorage(dir) {
 				return await readFile(pathOf(key));
 			} catch (err) {
 				if (/** @type {NodeJS.ErrnoException} */ (err).code === 'ENOENT') {
-                    return null;
-                }
+					return null;
+				}
 				throw err;
 			}
 		},

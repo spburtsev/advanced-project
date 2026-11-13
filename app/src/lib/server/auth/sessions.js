@@ -29,8 +29,8 @@ export async function createSession(db, userId) {
 export async function getSessionUserId(db, cookieHeader) {
 	const token = parseCookie(cookieHeader, SESSION_COOKIE);
 	if (!token) {
-        return null;
-    }
+		return null;
+	}
 	const [row] = await db
 		.select({ userId: sessions.userId })
 		.from(sessions)
