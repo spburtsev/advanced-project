@@ -1,6 +1,6 @@
 packages:
+  - app
   - packages/*
-  - apps/*
 allowBuilds:
   sharp: true
   esbuild: true

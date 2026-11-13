@@ -4,7 +4,7 @@ flowchart LR
   UserB[User B]
 
   EditorA("Editor A")
-  SyncService("Server")
+  SyncService("App server (sync core)")
   EditorB("Editor B")
 
   IndexedDB[("Local operations storage")]

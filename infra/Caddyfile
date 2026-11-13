@@ -1,0 +1,13 @@
+{$DOMAIN:localhost} {
+	handle /idp/* {
+		reverse_proxy keycloak:8080
+	}
+	# App pages, API and the /sync websocket.
+	handle {
+		reverse_proxy app:3000
+	}
+}
+
+s3.{$DOMAIN:localhost} {
+	reverse_proxy seaweedfs:8333
+}

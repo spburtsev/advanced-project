@@ -13,8 +13,7 @@ node "Browser" {
 frame "Docker Compose" {
   component "Caddy" as caddy
 
-  component "App server" as web
-  component "Sync service" as sync
+  component "App server\n(SvelteKit + /sync)" as web
   component "Keycloak" as keycloak
   component "SeaweedFS" as seaweed
 
@@ -27,7 +26,6 @@ frame "Docker Compose" {
 package "shared packages" {
   component "crdt" as pcrdt
   component "protocol" as pproto
-  component "db" as pdb
 }
 
 'Browser
@@ -40,25 +38,20 @@ ui --> caddy : HTTPS
 syncclient --> caddy : websocket
 
 'Server routing
-caddy -down-> web : /, /api
-caddy -down-> sync : /sync
-caddy -down-> keycloak : /auth
-caddy -down-> seaweed : /s3
+caddy -down-> web : /, /sync
+caddy -down-> keycloak : /idp
+caddy -down-> seaweed : s3. subdomain
 
 'Service to service
 web --> keycloak
 web --> seaweed
 web -down-> appdb
-sync -down-> appdb 
 keycloak -down-> kcdb
 
 'Shared code
 replica ..> pcrdt
-sync ..> pcrdt
 web ..> pcrdt
 syncclient ..> pproto
-sync ..> pproto
-web ..> pdb
-sync ..> pdb
+web ..> pproto
 
 @enduml

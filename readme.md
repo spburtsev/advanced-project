@@ -6,8 +6,23 @@ Design a real-time collaborative editor supporting multiple users editing simult
 ### Proposed Technologies: 
 WebSocket, Postgres, SeaweedFS, SvelteKit, Node.js.
 
+Implemented as one SvelteKit app (adapter-node) that also serves the `/sync` WebSocket, plus shared `crdt` and `protocol` packages; Drizzle ORM, Keycloak (OIDC), Caddy.
+
 ### Key Challenges: 
 Conflict-free real-time synchronization, managing concurrent edits, and ensuring data persistence across sessions.
+
+### Getting started
+Requires Node 26, pnpm and Docker.
+
+```bash
+pnpm i
+cp infra/.env.example infra/.env && cp app/.env.example app/.env
+pnpm dev:infra   # postgres, keycloak, seaweedfs
+pnpm migrate
+pnpm dev         # http://localhost:5173, websocket on /sync
+```
+
+Production: `pnpm build && pnpm start` (one Node process serves pages and `/sync`).
 
 
 ## Milestones:

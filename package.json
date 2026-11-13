@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm --parallel --filter @advanced-project/web --filter @advanced-project/sync-service run dev",
-    "infra": "docker compose -f infra/compose.yaml up -d postgres keycloak seaweedfs",
-    "check": "tsc -p . && pnpm --filter @advanced-project/web check"
+    "dev": "pnpm --filter @advanced-project/app dev",
+    "build": "pnpm --filter @advanced-project/app build",
+    "start": "pnpm --filter @advanced-project/app start",
+    "migrate": "pnpm --filter @advanced-project/app migrate",
+    "dev:infra": "docker compose -f infra/compose.yaml up -d",
+    "typecheck": "tsc -p . && pnpm --filter @advanced-project/app check",
+    "lint": "pnpm --filter @advanced-project/app lint"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +24,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@types/node": "^24.19.2",
+    "@types/node": "^26.6.6",
     "eslint": "^10.13.0",
     "eslint-plugin-jsdoc": "^65.4.2",
     "typescript": "^6.0.3"

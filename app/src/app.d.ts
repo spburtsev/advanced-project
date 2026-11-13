@@ -3,7 +3,10 @@
 declare global {
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			db: import('#lib/server/db/index.js').Db;
+			sync: import('#lib/server/sync/index.js').Sync;
+		}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}

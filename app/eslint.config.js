@@ -34,6 +34,20 @@ export default defineConfig(
 		}
 	},
 	{
+		// Loaded by plain Node (server.js, vite.config.ts): no SvelteKit aliases.
+		files: ['src/lib/server/runtime.js', 'src/lib/server/{db,sync}/**/*.js'],
+		rules: {
+			'no-restricted-imports': [
+				'error',
+				{
+					patterns: [
+						{ regex: '^[#$](lib|env|app)(/|$)', message: 'Use relative .js imports here.' }
+					]
+				}
+			]
+		}
+	},
+	{
 		// Override or add rule settings here, such as:
 		// 'svelte/button-has-type': 'error'
 		rules: {}
