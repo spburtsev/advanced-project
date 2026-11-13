@@ -6,6 +6,9 @@ declare global {
 		interface Locals {
 			db: import('#lib/server/db/index.js').Db;
 			sync: import('#lib/server/sync/index.js').Sync;
+			storage: import('#lib/server/storage/index.js').Storage | null;
+			localDev: boolean;
+			userId: string | null;
 		}
 		// interface PageData {}
 		// interface PageState {}

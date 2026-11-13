@@ -35,7 +35,7 @@ export default defineConfig(
 	},
 	{
 		// Loaded by plain Node (server.js, vite.config.ts): no SvelteKit aliases.
-		files: ['src/lib/server/runtime.js', 'src/lib/server/{db,sync}/**/*.js'],
+		files: ['src/lib/server/runtime.js', 'src/lib/server/{auth,db,storage,sync}/**/*.js'],
 		rules: {
 			'no-restricted-imports': [
 				'error',

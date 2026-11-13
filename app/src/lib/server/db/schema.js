@@ -20,8 +20,8 @@ export const role = pgEnum('role', ['owner', 'editor', 'viewer']);
 export const users = pgTable('users', {
 	id: uuid().primaryKey().defaultRandom(),
 	oidcSub: text('oidc_sub').notNull().unique(),
-	email: text(),
-	name: text(),
+	email: text().notNull(),
+	name: text().notNull(),
 	createdAt: createdAt()
 });
 

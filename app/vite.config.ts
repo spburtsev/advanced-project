@@ -11,12 +11,14 @@ import { createRuntime } from './src/lib/server/runtime.js';
 function syncDev(): Plugin {
 	return {
 		name: 'sync-dev',
-		configureServer(server) {
+		async configureServer(server) {
 			if (!server.httpServer) return; // middleware mode / vitest
 			const env = loadEnv(server.config.mode, server.config.root, '');
-			createRuntime({
+			await createRuntime({
+				localDev: env.LOCAL_DEV === '1',
 				databaseUrl: env.DATABASE_URL,
 				origin: env.ORIGIN,
+				dataDir: '.local',
 				server: server.httpServer as import('node:http').Server
 			});
 		}

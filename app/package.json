@@ -59,6 +59,7 @@
 	"dependencies": {
 		"@advanced-project/crdt": "workspace:*",
 		"@advanced-project/protocol": "workspace:*",
+		"@electric-sql/pglite": "^0.5.16",
 		"drizzle-orm": "^0.45.4",
 		"openid-client": "^6.8.9",
 		"pg": "^8.23.1",

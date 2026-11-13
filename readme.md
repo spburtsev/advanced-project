@@ -12,14 +12,23 @@ Implemented as one SvelteKit app (adapter-node) that also serves the `/sync` Web
 Conflict-free real-time synchronization, managing concurrent edits, and ensuring data persistence across sessions.
 
 ### Getting started
-Requires Node 26, pnpm and Docker.
+Requires Node 26 and pnpm.
+
+Without any infra (embedded PGlite in `app/.local/`, local file storage, mock login at `/auth/dev-login`):
 
 ```bash
 pnpm i
-cp infra/.env.example infra/.env && cp app/.env.example app/.env
-pnpm dev:infra   # postgres, keycloak, seaweedfs
+cp app/.env.example app/.env
+LOCAL_DEV=1 pnpm dev   # http://localhost:5173, websocket on /sync
+```
+
+With the real services (Docker):
+
+```bash
+cp infra/.env.example infra/.env
+pnpm dev:infra   # infra/compose-dev.yaml: postgres, keycloak, seaweedfs
 pnpm migrate
-pnpm dev         # http://localhost:5173, websocket on /sync
+pnpm dev
 ```
 
 Production: `pnpm build && pnpm start` (one Node process serves pages and `/sync`).

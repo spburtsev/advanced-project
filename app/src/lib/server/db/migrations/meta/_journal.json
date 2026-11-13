@@ -8,6 +8,13 @@
       "when": 1794535447004,
       "tag": "0000_wild_whiplash",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794590625279,
+      "tag": "0001_blue_archangel",
+      "breakpoints": true
     }
   ]
 }

@@ -8,7 +8,7 @@
     "build": "pnpm --filter @advanced-project/app build",
     "start": "pnpm --filter @advanced-project/app start",
     "migrate": "pnpm --filter @advanced-project/app migrate",
-    "dev:infra": "docker compose -f infra/compose.yaml up -d",
+    "dev:infra": "docker compose -f infra/compose-dev.yaml up -d",
     "typecheck": "tsc -p . && pnpm --filter @advanced-project/app check",
     "lint": "pnpm --filter @advanced-project/app lint"
   },
