@@ -25,8 +25,8 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^26.6.6",
-    "eslint": "^10.13.0",
-    "eslint-plugin-jsdoc": "^65.4.2",
+    "eslint": "^10.15.0",
+    "eslint-plugin-jsdoc": "^65.4.12",
     "typescript": "^6.0.3"
   }
 }

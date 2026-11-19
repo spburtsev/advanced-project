@@ -12,7 +12,7 @@
 	const { workspaces } = $derived(data);
 </script>
 
-<Card.Root class="mx-auto my-4 max-w-5xl">
+<Card.Root class="mx-4 my-4 max-w-5xl">
 	<Card.Header>
 		<Card.Title>Your Workspaces</Card.Title>
 		<Card.Action>
@@ -60,17 +60,19 @@
 													resolve(`/(protected)/workspaces/[workspace_id]`, {
 														workspace_id: workspace.id
 													})
-												)}>View</DropdownMenu.Item
+												)}
 										>
+											View
+										</DropdownMenu.Item>
 										<DropdownMenu.Item>Rename</DropdownMenu.Item>
 										<DropdownMenu.Separator />
 										<form method="POST" action="?/deleteWorkspace" use:enhance>
 											<input type="hidden" name="id" value={workspace.id} />
-											<DropdownMenu.Item variant="destructive">
+											<DropdownMenu.Item variant="destructive" class="w-full text-left">
 												{#snippet child({ props })}
 													<button {...props} type="submit">Delete</button>
 												{/snippet}
-											</DropdownMenu.Item>
+                                            </DropdownMenu.Item>
 										</form>
 									</DropdownMenu.Content>
 								</DropdownMenu.Root>
