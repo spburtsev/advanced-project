@@ -78,6 +78,7 @@
 	"dependencies": {
 		"@advanced-project/crdt": "workspace:*",
 		"@advanced-project/protocol": "workspace:*",
+		"@aws-sdk/client-s3": "^3.1172.0",
 		"@electric-sql/pglite": "^0.5.16",
 		"drizzle-orm": "^0.45.4",
 		"openid-client": "^6.8.9",

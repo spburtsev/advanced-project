@@ -1,13 +1,13 @@
 import { join } from 'node:path';
 import { createDb, createLocalDb } from './db/index.js';
-import { createLocalStorage } from './storage/index.js';
+import { createLocalStorage, createS3Storage, readS3Config } from './storage/index.js';
 import { attachSync } from './sync/index.js';
 
 /**
  * @typedef {{
  *   db: import('./db/index.js').Db,
  *   sync: import('./sync/index.js').Sync,
- *   storage: import('./storage/index.js').Storage | null,
+ *   storage: import('./storage/index.js').Storage,
  *   localDev: boolean
  * }} Runtime
  */
@@ -42,14 +42,17 @@ export async function createRuntime({ localDev, databaseUrl, origin, dataDir, se
 		db = localDev
 			? await createLocalDb(join(dataDir, 'pgdata'))
 			: createDb(/** @type {string} */ (databaseUrl));
-		// ponytail: S3 storage lands with attachments; null until then.
-		storage = localDev ? createLocalStorage(join(dataDir, 'storage')) : null;
-		if (localDev) {
-			console.log('LOCAL_DEV: PGlite + local storage + mock login at /auth/dev-login');
-		}
+	}
+	if (!storage) {
+		storage = localDev
+			? createLocalStorage(join(dataDir, 'storage'))
+			: createS3Storage(readS3Config());
+	}
+	if (localDev) {
+		console.log('LOCAL_DEV: PGlite + local storage + mock login at /auth/dev-login');
 	}
 	const sync = attachSync(server, { path: '/sync', db, origin });
-	return (store[KEY] = { db, sync, storage: storage ?? null, localDev });
+	return (store[KEY] = { db, sync, storage, localDev });
 }
 
 /** @returns {Runtime} */
