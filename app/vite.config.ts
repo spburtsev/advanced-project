@@ -26,6 +26,10 @@ function syncDev(): Plugin {
 }
 
 export default defineConfig({
+	ssr: {
+		// The package ships .svelte files. Node cannot load those when the dependency stays external.
+		noExternal: ['@shadcn-svelte/primitives']
+	},
 	plugins: [
 		enhancedImages(),
 		tailwindcss(),

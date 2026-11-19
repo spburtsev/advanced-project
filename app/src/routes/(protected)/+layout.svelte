@@ -1,5 +1,6 @@
 <script lang="ts">
 	import EllipsisIcon from '@lucide/svelte/icons/ellipsis';
+	import MessageSquareIcon from '@lucide/svelte/icons/message-square';
 	import PanelLeftIcon from '@lucide/svelte/icons/panel-left';
 	import * as Avatar from '#lib/components/ui/avatar/index.js';
 	import { Button } from '#lib/components/ui/button/index.js';
@@ -9,10 +10,12 @@
 	import { page } from '$app/state';
 	import { enhance } from '$app/forms';
 	import FileTree from './workspaces/[workspace_id]/filetree.svelte';
+	import RightSidebar from './workspaces/[workspace_id]/right-sidebar.svelte';
 
 	const { children, data } = $props();
 
 	let collapsed = $state(false);
+	let chatHidden = $state(false);
 
 	const initials = $derived(
 		data.username
@@ -70,7 +73,7 @@
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
 				</div>
-				{#if page.form?.message}
+				{#if page.form?.message && page.form.scope !== 'send'}
 					<p class="px-4 pb-1 text-xs text-destructive">{page.form.message}</p>
 				{/if}
 				<FileTree />
@@ -118,9 +121,26 @@
 			>
 				<PanelLeftIcon />
 			</Button>
+			{#if showFileTree}
+				<Button
+					class="ms-auto"
+					variant="ghost"
+					size="icon-sm"
+					type="button"
+					aria-controls="chat-sidebar"
+					aria-expanded={!chatHidden}
+					aria-label={chatHidden ? 'Show chat' : 'Hide chat'}
+					onclick={() => (chatHidden = !chatHidden)}
+				>
+					<MessageSquareIcon />
+				</Button>
+			{/if}
 		</div>
 		<div class="min-h-0 flex-1 overflow-auto">
 			{@render children()}
 		</div>
 	</div>
+	{#if showFileTree && !chatHidden}
+		<RightSidebar />
+	{/if}
 </div>
