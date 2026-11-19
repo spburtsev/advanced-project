@@ -37,7 +37,10 @@ export const sessions = pgTable('sessions', {
 export const workspaces = pgTable('workspaces', {
 	id: uuid().primaryKey().defaultRandom(),
 	name: text().notNull(),
-	createdAt: createdAt()
+	createdAt: createdAt(),
+	createdBy: uuid('created_by')
+		.notNull()
+		.references(() => users.id, { onDelete: 'cascade' })
 });
 
 export const memberships = pgTable(
